@@ -1,0 +1,42 @@
+@startuml
+' 去掉所有阴影效果
+skinparam shadowing false
+
+
+' 增加参与者水平间距 → 使连线变长，图更宽
+skinparam ParticipantPadding 150
+skinparam BoxPadding 60
+
+' 自定义时序图清爽样式
+skinparam sequence {
+    ArrowColor Black
+    ActorBorderColor Black
+    LifeLineBorderColor Black
+    ActorBackgroundColor White
+    ParticipantBackgroundColor White
+    Margin 15
+}
+
+actor 用户 as U
+participant "前端" as F
+participant "高德地图API" as A
+
+U -> F: 打开页面
+F -> A: 初始化地图并获取位置
+A --> F: 返回位置信息
+F --> U: 显示地图和用户标记
+
+U -> F: 搜索或点击选择目的地
+F -> A: 搜索/标记地点
+A --> F: 返回结果并标记
+
+U -> F: 点击"开始导航"
+F -> A: 规划路径
+A --> F: 显示路线
+F --> U: 启动语音播报
+
+U -> F: 点击"停止导航"
+F -> F: 清除定时器和队列
+F -> A: 清除路线和标记
+F --> U: 恢复初始状态
+@enduml

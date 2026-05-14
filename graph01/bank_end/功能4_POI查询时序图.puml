@@ -1,0 +1,37 @@
+@startuml
+title POI查询时序图
+
+actor "用户" as 用户
+participant "前端" as 前端
+participant "后端" as 后端
+participant "Redis" as Redis
+participant "高德地图API" as 高德地图
+participant "DeepSeekAPI" as AI
+
+用户 -> 前端: 选点获得导览语音
+activate 前端
+前端 -> 后端: GET /api/getPoi (经纬度, 用户ID)
+activate 后端
+后端 -> Redis: 检查缓存
+activate Redis
+Redis --> 后端: 返回缓存结果
+deactivate Redis
+后端 -> 高德地图: 请求逆地理编码
+activate 高德地图
+高德地图 --> 后端: 返回POI信息
+deactivate 高德地图
+后端 -> AI: 生成POI导览内容
+activate AI
+AI --> 后端: 返回导览文本
+deactivate AI
+后端 -> Redis: 缓存导览摘要
+activate Redis
+Redis --> 后端: 确认缓存
+deactivate Redis
+后端 --> 前端: 返回导览文本
+deactivate 后端
+前端 -> 前端: 播放导览语音
+前端 --> 用户: 收听导览语音
+deactivate 前端
+
+@enduml

@@ -1,0 +1,76 @@
+@startuml
+skinparam shadowing false
+title 文化导览模式时序图
+skinparam sequence {
+    ArrowColor black
+    ArrowFontColor black
+    ActorBorderColor black
+    ActorBackgroundColor white
+    ActorFontColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+    LifeLineBorderColor black
+    LifeLineBackgroundColor white
+    DividerBorderColor none
+    DividerBackgroundColor transparent
+    DividerFontColor black
+    DividerFontStyle normal  ' 取消加粗，普通字体
+}
+actor 用户
+participant 前端
+participant 后端
+participant Redis
+participant "高德地图API" as AMap
+participant "DeepSeekAPI" as DeepSeek
+
+
+用户 -> 前端: 文化导览模式点击开始导航
+activate 前端
+前端 -> 后端: POST /api/get-user (导航参数)
+activate 后端
+后端 -> AMap: 请求逆地理编码
+activate AMap
+AMap --> 后端: 返回地理位置信息
+deactivate AMap
+后端 -> AMap: 请求天气信息
+activate AMap
+AMap --> 后端: 返回天气信息
+deactivate AMap
+后端 -> DeepSeek: 生成导览内容
+activate DeepSeek
+DeepSeek --> 后端: 返回导览文本
+deactivate DeepSeek
+后端 --> 前端: 返回导览文本
+deactivate 后端
+前端 -> 前端: 播放导览语音
+前端 --> 用户: 收听导览内容
+deactivate 前端
+
+
+用户 -> 前端: 查询区域信息
+activate 前端
+前端 -> 后端: GET /api/getArea (经纬度, 用户ID)
+activate 后端
+后端 -> Redis: 检查缓存
+activate Redis
+Redis --> 后端: 返回缓存结果
+deactivate Redis
+后端 -> AMap: 请求逆地理编码
+activate AMap
+AMap --> 后端: 返回区域信息
+deactivate AMap
+后端 -> DeepSeek: 生成区域导览内容
+activate DeepSeek
+DeepSeek --> 后端: 返回导览文本
+deactivate DeepSeek
+后端 -> Redis: 缓存导览摘要
+activate Redis
+Redis --> 后端: 确认缓存
+deactivate Redis
+后端 --> 前端: 返回导览文本
+deactivate 后端
+前端 -> 前端: 播放导览语音
+前端 --> 用户: 收听区域导览
+deactivate 前端
+@enduml

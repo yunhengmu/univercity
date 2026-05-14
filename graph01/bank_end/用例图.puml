@@ -1,0 +1,62 @@
+@startuml
+title 文化导览模式时序图
+
+actor "用户" as User
+participant "前端" as Frontend
+participant "后端" as Backend
+participant "MySQL" as MySQL
+participant "Redis" as Redis
+participant "高德地图API" as Amap
+participant "DeepSeekAPI" as AI
+
+== 场景1: 点击文化导览 ==
+User -> Frontend: 点击文化导览
+activate Frontend
+Frontend -> Backend: POST /api/get-user (导航参数)
+activate Backend
+Backend -> Amap: 请求逆地理编码
+activate Amap
+Amap --> Backend: 返回地理位置信息
+deactivate Amap
+Backend -> Amap: 请求天气信息
+activate Amap
+Amap --> Backend: 返回天气信息
+deactivate Amap
+Backend -> AI: 生成导览内容
+activate AI
+AI --> Backend: 返回导览文本
+deactivate AI
+Backend --> Frontend: 返回导览文本
+deactivate Backend
+Frontend -> Frontend: 播放导览语音
+Frontend --> User: 展示导览内容
+deactivate Frontend
+
+== 场景2: 查询区域信息 ==
+User -> Frontend: 查询区域信息
+activate Frontend
+Frontend -> Backend: GET /api/getArea (经纬度, 用户ID)
+activate Backend
+Backend -> Redis: 检查缓存
+activate Redis
+Redis --> Backend: 返回缓存结果
+deactivate Redis
+Backend -> Amap: 请求逆地理编码
+activate Amap
+Amap --> Backend: 返回区域信息
+deactivate Amap
+Backend -> AI: 生成区域导览内容
+activate AI
+AI --> Backend: 返回导览文本
+deactivate AI
+Backend -> Redis: 缓存导览摘要
+activate Redis
+Redis --> Backend: 确认缓存
+deactivate Redis
+Backend --> Frontend: 返回导览文本
+deactivate Backend
+Frontend -> Frontend: 播放导览语音
+Frontend --> User: 展示区域导览
+deactivate Frontend
+
+@enduml

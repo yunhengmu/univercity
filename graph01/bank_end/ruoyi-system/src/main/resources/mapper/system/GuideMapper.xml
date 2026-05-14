@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.GuideMapper">
+
+    <resultMap type="GuideVo" id="GuideVoResult">
+        <result property="id"            column="id"            />
+        <result property="userId"        column="user_id"       />
+        <result property="name"          column="name"          />
+        <collection property="aiareas"   ofType="Aiarea">
+            <result property="id"         column="aid"           />
+            <result property="guideId"    column="guide_id"      />
+            <result property="contentAi"  column="content_ai"    />
+            <result property="type"       column="type"          />
+        </collection>
+    </resultMap>
+
+    <insert id="insertGuideVo" parameterType="GuideVo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO guide (user_id, name)
+        VALUES (#{userId}, #{name})
+    </insert>
+
+    <insert id="batchInsertAiarea">
+        INSERT INTO aiarea (guide_id, content_ai, type)
+        VALUES
+        <foreach collection="aiareas" item="aiarea" separator=",">
+            (#{guideId}, #{aiarea.contentAi}, #{aiarea.type})
+        </foreach>
+    </insert>
+
+</mapper>

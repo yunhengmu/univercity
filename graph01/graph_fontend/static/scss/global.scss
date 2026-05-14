@@ -1,0 +1,248 @@
+.text-center {
+	text-align: center;
+}
+
+.font-13 {
+	font-size: 13px;
+}
+
+.font-12 {
+	font-size: 12px;
+}
+
+.font-11 {
+	font-size: 11px;
+}
+
+.text-grey1 {
+	color: #888;
+}
+.text-grey2 {
+	color: #aaa;
+}
+
+/* ====================
+   iPhone 刘海屏设备全局适配
+   自动为所有页面添加顶部安全区域
+==================== */
+
+/* H5端专用顶部适配 - 将内容顶到最顶部 */
+/* #ifdef H5 */
+.container,
+.page {
+  /* H5端移除默认padding，让内容顶到顶部 */
+  padding-top: 0 !important;
+  min-height: 100vh;
+}
+
+/* record页面特殊处理 - 需要保留顶部安全区域以避开刘海屏 */
+.page[data-page="record"] {
+  padding-top: constant(safe-area-inset-top) !important;
+  padding-top: env(safe-area-inset-top) !important;
+}
+/* #endif */
+
+/* 通用 .container 和 .page 类的顶部安全区域（针对所有iPhone刘海屏）*/
+.container,
+.page {
+  /* iOS 11.0-11.2 */
+  padding-top: constant(safe-area-inset-top);
+  /* iOS 11.2+ */
+  padding-top: env(safe-area-inset-top);
+}
+
+/* 页面容器顶部安全区域 - 适用于自定义导航栏的页面 */
+.page-container-safe-top,
+.container-safe-top,
+.safe-page-top {
+  /* iOS 11.0-11.2 */
+  padding-top: constant(safe-area-inset-top);
+  /* iOS 11.2+ */
+  padding-top: env(safe-area-inset-top);
+}
+
+/* 通用 .container 和 .page 类的顶部安全区域（针对所有iPhone刘海屏）*/
+.container,
+.page {
+  /* iOS 11.0-11.2 */
+  padding-top: constant(safe-area-inset-top);
+  /* iOS 11.2+ */
+  padding-top: env(safe-area-inset-top);
+}
+
+/* 固定定位元素的顶部安全区域 */
+.fixed-header-safe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* iOS 11.0-11.2 */
+  padding-top: constant(safe-area-inset-top);
+  /* iOS 11.2+ */
+  padding-top: env(safe-area-inset-top);
+  z-index: 999;
+}
+
+/* 绝对定位元素的顶部安全区域 */
+.absolute-header-safe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* iOS 11.0-11.2 */
+  padding-top: constant(safe-area-inset-top);
+  /* iOS 11.2+ */
+  padding-top: env(safe-area-inset-top);
+  z-index: 100;
+}
+
+/* ====================
+   iPhone 12 专用适配样式
+   屏幕尺寸: 390 x 844 pt
+   安全区域: top 47px, bottom 34px, left/right 0px
+==================== */
+
+/* iPhone 12 媒体查询 */
+@media only screen 
+  and (device-width: 390px) 
+  and (device-height: 844px) 
+  and (-webkit-device-pixel-ratio: 3) {
+  
+  /* 顶部安全区域适配（刘海屏）*/
+  .safe-top {
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  /* 底部安全区域适配（Home Indicator）*/
+  .safe-bottom {
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* 左侧安全区域 */
+  .safe-left {
+    padding-left: constant(safe-area-inset-left);
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  /* 右侧安全区域 */
+  .safe-right {
+    padding-right: constant(safe-area-inset-right);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* 全屏安全区域 */
+  .safe-all {
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: constant(safe-area-inset-left);
+    padding-left: env(safe-area-inset-left);
+    padding-right: constant(safe-area-inset-right);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* 固定底部元素的安全区域 */
+  .fixed-bottom-safe {
+    bottom: constant(safe-area-inset-bottom);
+    bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* 弹窗底部安全区域 */
+  .modal-safe-bottom {
+    margin-bottom: constant(safe-area-inset-bottom);
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* 通用安全区域类（适用于所有带刘海屏的设备）*/
+.safe-top-universal {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-bottom-universal {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-all-universal {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: constant(safe-area-inset-left);
+  padding-left: env(safe-area-inset-left);
+  padding-right: constant(safe-area-inset-right);
+  padding-right: env(safe-area-inset-right);
+}
+
+.list-cell-arrow::before {
+    content: ' ';
+    height: 10px;
+    width: 10px;
+    border-width: 2px 2px 0 0;
+    border-color: #c0c0c0;
+    border-style: solid;
+    -webkit-transform: matrix(0.5, 0.5, -0.5, 0.5, 0, 0);
+    transform: matrix(0.5, 0.5, -0.5, 0.5, 0, 0);
+    position: absolute;
+    top: 50%;
+    margin-top: -6px;
+    right: 30rpx;
+  }
+  
+  .list-cell {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+    padding: 26rpx 30rpx;
+  }
+  
+  .list-cell:first-child {
+    border-radius: 8rpx 8rpx 0 0;
+  }
+  
+  .list-cell:last-child {
+    border-radius: 0 0 8rpx 8rpx;
+  }
+  
+  .list-cell::after {
+    content: '';
+    position: absolute;
+    border-bottom: 1px solid #eaeef1;
+    -webkit-transform: scaleY(0.5) translateZ(0);
+    transform: scaleY(0.5) translateZ(0);
+    transform-origin: 0 100%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    pointer-events: none;
+  }
+  
+  
+  .menu-list {
+    margin: 15px 15px;
+  
+    .menu-item-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+  
+      .menu-icon {
+        color: #007AFF;
+        font-size: 16px;
+        margin-right: 5px;
+      }
+      
+      .text-right {
+        margin-left: auto;
+        margin-right: 34rpx;
+        color: #999;
+      }
+    }
+  }

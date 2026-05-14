@@ -1,0 +1,84 @@
+/* 公共颜色变量文件 */
+/* 适用于所有页面的主题颜色配置 */
+
+page,
+html {
+  --bg-color-primary: #f5f5f5;
+  --bg-color-secondary: #ffffff;
+  --bg-color-tertiary: #f8fafc;
+  
+  --text-color-primary: #1e293b;
+  --text-color-secondary: #475569;
+  --text-color-tertiary: #64748b;
+  --text-color-placeholder: #94a3b8;
+  
+  --border-color-light: #e2e8f0;
+  --border-color-medium: #cbd5e1;
+  
+  --shadow-color-light: rgba(0, 0, 0, 0.1);
+  --shadow-color-medium: rgba(0, 0, 0, 0.15);
+  
+  --theme-blue: #3b82f6;
+  --theme-blue-dark: #2563eb;
+  --theme-green: #10b981;
+  --theme-orange: #f97316;
+  --theme-red: #ef4444;
+  
+  --gradient-bg-light: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --gradient-card-light: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+/* 全局应用背景色和文字颜色 */
+page,
+html,
+body,
+#app {
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+}
+
+/* ====== 通用工具类 ====== */
+
+/* 背景色工具类 */
+.bg-primary {
+  background-color: var(--bg-color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--bg-color-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--bg-color-tertiary);
+}
+
+/* 文字颜色工具类 */
+.text-primary {
+  color: var(--text-color-primary);
+}
+
+.text-secondary {
+  color: var(--text-color-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-color-tertiary);
+}
+
+/* 渐变背景工具类 */
+.bg-gradient-page {
+  background: var(--gradient-bg-light);
+}
+
+.bg-gradient-card {
+  background: var(--gradient-card-light);
+}
+
+/* 边框颜色工具类 */
+.border-light {
+  border-color: var(--border-color-light);
+}
+
+.border-medium {
+  border-color: var(--border-color-medium);
+}

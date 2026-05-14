@@ -1,0 +1,52 @@
+@startuml
+title 小说模式时序图
+
+actor "用户" as 用户
+participant "前端" as 前端
+participant "后端" as 后端
+participant "MySQL" as MySQL
+participant "高德地图API" as 高德地图
+participant "DeepSeekAPI" as AI
+
+用户 -> 前端: 开始小说导航
+activate 前端
+前端 -> 后端: POST /api/startNavigationNoBook (起点, 终点, 通行方式)
+activate 后端
+后端 -> 高德地图: 请求驾驶路线
+activate 高德地图
+高德地图 --> 后端: 返回路线信息
+deactivate 高德地图
+
+deactivate MySQL
+后端 --> 前端: 返回轨迹ID
+deactivate 后端
+前端 --> 用户: 显示导航路线
+deactivate 前端
+
+用户 -> 前端: 获取章节内容
+activate 前端
+前端 -> 后端: POST /api/get-chapter (bookId, trajectoryId, length)
+activate 后端
+后端 -> MySQL: 查询book表
+activate MySQL
+MySQL --> 后端: 返回书籍信息
+deactivate MySQL
+后端 -> MySQL: 查询area表
+activate MySQL
+MySQL --> 后端: 返回区域信息
+deactivate MySQL
+后端 -> AI: 生成章节内容
+activate AI
+AI --> 后端: 返回章节文本
+deactivate AI
+后端 -> MySQL: 插入章节数据到chapter表
+activate MySQL
+MySQL --> 后端: 确认保存成功
+deactivate MySQL
+后端 --> 前端: 返回章节文本
+deactivate 后端
+前端 -> 前端: 播放章节语音
+前端 --> 用户: 收听章节内容
+deactivate 前端
+
+@enduml

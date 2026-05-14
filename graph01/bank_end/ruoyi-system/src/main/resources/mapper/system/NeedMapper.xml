@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.NeedMapper">
+
+    <resultMap type="Need" id="NeedResult">
+        <result property="id"            column="id"            />
+        <result property="customerId"    column="customer_id"   />
+        <result property="needContent"   column="need_content"  />
+  </resultMap>
+
+    <sql id="selectNeedVo">
+        select id, customer_id, need_content from need
+    </sql>
+
+    <select id="selectNeedsByUserId" parameterType="Integer" resultMap="NeedResult">
+        <include refid="selectNeedVo"/>
+        where customer_id = #{userId}
+    </select>
+
+    <insert id="insert" parameterType="Need">
+        insert into need (
+        <if test="customerId != null and customerId != '' ">customer_id, </if>
+        <if test="needContent != null and needContent != '' ">need_content
+        </if>
+        )values(
+        <if test="customerId != null and customerId != '' ">#{customerId}, </if>
+        <if test="needContent != null and needContent != '' ">#{needContent}
+        </if>
+        )
+    </insert>
+
+    <update id="updateById" parameterType="Need">
+        update need
+        <set>
+            <if test="customerId != null and customerId != ''">customer_id = #{customerId}, </if>
+            <if test="needContent != null and needContent != ''">need_content = #{needContent}, </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete from need where id = #{id}
+    </delete>
+
+</mapper>

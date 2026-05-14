@@ -1,0 +1,45 @@
+@startuml
+' 打印友好样式配置：无阴影、纯黑白、无多余边框、无加粗
+skinparam shadowing false
+skinparam defaultFontName "Microsoft YaHei"
+skinparam defaultFontSize 10
+
+skinparam sequence {
+    ArrowColor black
+    ArrowFontColor black
+    ActorBorderColor black
+    ActorBackgroundColor white
+    ActorFontColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+    LifeLineBorderColor black
+    LifeLineBackgroundColor white
+    DividerBorderColor none
+    DividerBackgroundColor transparent
+    DividerFontColor black
+    DividerFontStyle normal  ' 取消加粗，普通字体
+}
+
+actor 用户
+participant 首页
+participant 书籍页
+participant 文化导览页
+participant 记录页
+participant 个人中心
+
+== 流程需求一：查看记录的小说 ==
+用户 -> 记录页: 进入记录页面
+记录页 -> 书籍页: 跳转到书籍详情
+书籍页 --> 用户: 展示章节内容
+
+== 流程需求二：查看收藏的文化导览 ==
+用户 -> 记录页: 进入记录页面
+记录页 -> 文化导览页: 跳转到导览详情
+文化导览页 --> 用户: 展示导览内容
+
+== 流程需求三：应用个性化需求到首页 ==
+用户 -> 个人中心: 点击应用需求
+个人中心 -> 首页: 切换标签页跳转
+首页 --> 用户: 首页显示已应用的需求
+@enduml

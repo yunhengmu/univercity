@@ -1,0 +1,33 @@
+
+@startuml 页面跳转顺序图
+
+skinparam backgroundColor #f8fafc
+skinparam sequence {
+  ArrowColor #1677ff
+  LifeLineBackgroundColor white
+}
+
+participant "用户" as 用户
+participant "首页" as 首页
+participant "书籍页" as 书籍页
+participant "文化导览页" as 导览页
+participant "记录页" as 记录页
+participant "个人中心" as 个人中心
+
+== 流程需求一：查看收藏的小说 ==
+用户 -> 记录页: 进入收藏页面
+记录页 -> 书籍页: 跳转到书籍详情
+书籍页 --> 用户: 展示章节内容
+
+== 流程需求二：查看收藏的文化导览 ==
+用户 -> 记录页: 进入收藏页面
+用户 -> 记录页: 点击导览收藏项
+记录页 -> 导览页: 跳转到导览详情
+导览页 --> 用户: 展示导览内容
+
+== 流程需求三：应用个性化需求到首页 ==
+用户 -> 个人中心: 点击应用需求
+个人中心 -> 首页: 切换标签页跳转
+首页 --> 用户: 首页显示已应用的需求
+
+@enduml

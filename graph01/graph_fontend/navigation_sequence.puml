@@ -1,0 +1,90 @@
+@startuml 导航功能顺序图
+
+actor 用户
+participant 页面组件 as 页面
+participant 地图组件 as 地图
+participant 导航服务 as 导航服务
+participant 语音服务 as 语音服务
+participant 后端API as 后端API
+
+' 导航启动流程
+用户 -> 页面: 选择目的地
+用户 -> 页面: 点击开始导航按钮
+页面 -> 页面: toggleNavigation()
+页面 -> 页面: startNavigation()
+页面 -> 页面: getCurrentLocation()
+页面 -> 地图: 获取当前位置
+地图 --> 页面: 返回当前位置
+页面 -> 页面: drawNavigationPath()
+页面 -> 地图: 绘制导航路径
+地图 --> 页面: 路径绘制完成
+
+' 小说模式导航
+alt 小说模式 (mode === 0)
+    page -> 后端API: getUserText(导航参数)
+    后端API --> 页面: 返回用户文本
+    page -> 语音服务: addTextToSpeechQueue(文本)
+    语音服务 --> 页面: 文本添加到队列
+    
+    page -> 后端API: startNavigationNoBook(导航参数)
+    后端API --> 页面: 返回轨迹ID
+    
+    page -> 后端API: getChapter(轨迹ID)
+    后端API --> 页面: 返回章节内容
+    page -> 语音服务: addTextToSpeechQueue(章节内容)
+    语音服务 --> 页面: 章节内容添加到队列
+    
+    loop 每2分钟
+        page -> 后端API: getChapter(轨迹ID)
+        后端API --> 页面: 返回新章节内容
+        page -> 语音服务: addTextToSpeechQueue(新章节内容)
+        语音服务 --> 页面: 新章节内容添加到队列
+    end
+
+' 文化导览模式导航
+else 文化导览模式 (mode === 1)
+    page -> 后端API: getUserText(导航参数)
+    后端API --> 页面: 返回用户文本
+    page -> 语音服务: addTextToSpeechQueue(文本)
+    语音服务 --> 页面: 文本添加到队列
+    
+    loop 每3秒
+        page -> 后端API: getAreaAsync(位置参数)
+        后端API --> 页面: 返回taskId
+        page -> 后端API: getTaskResult(taskId)
+        后端API --> 页面: 返回导游词
+        page -> 语音服务: addTextToSpeechQueue(导游词)
+        语音服务 --> 页面: 导游词添加到队列
+    end
+end
+
+' 导航控制
+用户 -> 页面: 点击暂停按钮
+页面 -> 页面: togglePause()
+页面 -> 语音服务: 暂停语音播放
+语音服务 --> 页面: 语音播放暂停
+
+用户 -> 页面: 点击继续按钮
+页面 -> 页面: togglePause()
+页面 -> 语音服务: 继续语音播放
+语音服务 --> 页面: 语音播放继续
+
+' 导航停止
+用户 -> 页面: 点击停止导航按钮
+页面 -> 页面: toggleNavigation()
+页面 -> 页面: stopNavigation()
+
+alt 文化导览模式
+    page -> 用户: 询问是否收藏旅程
+    user -> page: 确认/取消收藏
+    page -> 后端API: isNavigation(userId, 是否收藏)
+    后端API --> 页面: 返回收藏结果
+    page -> 用户: 显示收藏成功/失败提示
+end
+
+page -> 页面: performStopNavigation()
+page -> 页面: 清理定时器和轮询任务
+page -> 语音服务: 清空语音队列
+page -> 页面: 重置导航状态
+
+@enduml

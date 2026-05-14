@@ -1,0 +1,44 @@
+{
+  "name": "graph-fontend",
+  "version": "1.0.0",
+  "description": "路听前端应用",
+  "main": "main.js",
+  "scripts": {
+    "dev:h5": "uni-app dev",
+    "build:h5": "uni-app build",
+    "dev:mp-weixin": "uni-app dev --platform mp-weixin",
+    "build:mp-weixin": "uni-app build --platform mp-weixin"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "^1.0.0",
+    "@dcloudio/uni-ui": "^1.4.0",
+    "crypto-js": "^4.2.0"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "^3.3.0",
+    "@dcloudio/uni-automator": "^2.0.0",
+    "@dcloudio/uni-cli-shared": "^2.0.0",
+    "@dcloudio/uni-migration": "^2.0.0",
+    "@dcloudio/uni-template-compiler": "^2.0.0",
+    "@dcloudio/uni-test-runner": "^2.0.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^7.19.1",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "browserslist": [
+    "Android >= 4.4",
+    "iOS >= 9.0"
+  ],
+  "uni-app": {
+    "scripts": {
+      "h5": {
+        "title": "路听",
+        "domain": ""
+      }
+    }
+  }
+}

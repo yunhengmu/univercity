@@ -1,0 +1,68 @@
+@startuml 地图服务模块顺序图
+
+actor 用户
+participant 前端页面 as Frontend
+participant 地图API as MapAPI
+participant 后端API as Backend
+participant Redis as RedisCache
+
+' 地图初始化流程
+用户 -> Frontend: 打开应用
+Frontend -> MapAPI: 初始化地图
+MapAPI --> Frontend: 地图初始化完成
+Frontend -> MapAPI: 自动定位
+MapAPI --> Frontend: 返回用户位置
+Frontend --> 用户: 显示当前位置
+
+' 位置搜索流程
+用户 -> Frontend: 输入搜索关键词
+Frontend -> MapAPI: 搜索POI
+MapAPI --> Frontend: 返回搜索结果
+Frontend --> 用户: 显示搜索结果
+用户 -> Frontend: 选择目的地
+Frontend -> MapAPI: 在地图上标记目的地
+MapAPI --> Frontend: 标记完成
+
+' 文化导览模式导航流程
+用户 -> Frontend: 选择文化导览模式
+用户 -> Frontend: 点击开始导航
+Frontend -> Backend: POST /api/get-user (origin, destination, type, wordsType)
+Backend --> Frontend: 返回导览文本
+Frontend -> Backend: GET /api/getArea (longitude, latitude, userId)
+Backend --> Frontend: 返回文化区域信息
+Frontend -> Frontend: 播放导览文本
+Frontend -> Backend: 轮询GET /api/getArea
+Backend --> Frontend: 返回更新的导览信息
+Frontend -> Frontend: 播放更新的导览文本
+
+' 小说模式导航流程
+用户 -> Frontend: 选择小说模式
+用户 -> Frontend: 点击开始导航
+Frontend -> Backend: POST /api/startNavigationNoBook (origin, destination, byWay)
+Backend --> Frontend: 返回轨迹ID
+Frontend -> Backend: POST /api/get-chapter (bookId, trajectoryId, length)
+Backend --> Frontend: 返回章节内容
+Frontend -> Frontend: 播放章节内容
+Frontend -> Backend: 轮询POST /api/get-chapter
+Backend --> Frontend: 返回更新的章节内容
+Frontend -> Frontend: 播放更新的章节内容
+
+' POI轮询流程
+用户 -> Frontend: 选择中心点
+Frontend -> Backend: GET /api/getPoi (longitude, latitude, userId)
+Backend --> Frontend: 返回POI信息
+Frontend -> Frontend: 播放POI信息
+Frontend -> Backend: 轮询GET /api/getPoi
+Backend --> Frontend: 返回更新的POI信息
+Frontend -> Frontend: 播放更新的POI信息
+
+' 停止导航流程
+用户 -> Frontend: 点击停止导航
+Frontend -> Backend: POST /api/isNavigation (userId, isNavigation)
+Backend -> Redis: 保存导航状态
+Redis --> Backend: 保存成功
+Backend --> Frontend: 返回保存结果
+Frontend -> Frontend: 清理轮询和定时器
+Frontend --> 用户: 显示停止导航确认
+
+@enduml

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BookMapper">
+
+    <resultMap type="com.ruoyi.system.domain.Book" id="BookResult">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="userId" column="user_id"/>
+        <result property="type" column="type"/>
+        <result property="world" column="world"/>
+        <result property="style" column="style"/>
+        <result property="core" column="core"/>
+        <result property="beginning" column="beginning"/>
+        <result property="development" column="development"/>
+        <result property="turningPoint" column="turning_point"/>
+        <result property="climax" column="climax"/>
+        <result property="ending" column="ending"/>
+        <result property="wordsType" column="wordstype"/>
+        <result property="branchNum" column="branch_num"/>
+        <result property="control" column="control"/>
+        <result property="chapterNum" column="chapter_num"/>
+        <result property="totalChapter" column="total_chapter"/>
+    </resultMap>
+
+    <resultMap type="com.ruoyi.system.domain.vo.BookVo" id="BookVoResult">
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+    <select id="selectAllShelvedBooks" resultMap="BookResult">
+        SELECT *, 
+               turning_point as turningPoint, 
+               branch_num as branchNum, 
+               chapter_num as chapterNum, 
+               total_chapter as totalChapter
+        FROM book
+        WHERE id IN (
+            SELECT DISTINCT book_id 
+            FROM up_log
+            WHERE status = 1
+        )
+        ORDER BY id DESC
+    </select>
+
+    <select id="selectShelvedBooksByUpLog" resultMap="BookResult">
+        SELECT DISTINCT b.*,
+               b.turning_point as turningPoint,
+               b.branch_num as branchNum,
+               b.chapter_num as chapterNum,
+               b.total_chapter as totalChapter
+        FROM book b
+        INNER JOIN up_log ul ON b.id = ul.book_id
+        ORDER BY b.id DESC
+    </select>
+
+
+
+</mapper>

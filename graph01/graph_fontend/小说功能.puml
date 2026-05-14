@@ -1,0 +1,79 @@
+@startuml
+' 小说模式时序图
+title 小说模式时序图
+skinparam sequence {
+    ArrowColor black
+    ArrowFontColor black
+    ActorBorderColor black
+    ActorBackgroundColor white
+    ActorFontColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+    LifeLineBorderColor black
+    LifeLineBackgroundColor white
+    DividerBorderColor none
+    DividerBackgroundColor transparent
+    DividerFontColor black
+    DividerFontStyle normal  ' 取消加粗，普通字体
+}
+' 定义参与者（从左至右，与SVG顺序一致）
+actor "用户" as User
+participant "前端" as Frontend
+participant "后端" as Backend
+participant "MySQL" as DB
+participant "高德地图API" as Gaode
+participant "DeepSeekAPI" as AI
+
+' ========== 开始小说导航 ==========
+User -> Frontend : 开始小说导航
+activate Frontend
+
+Frontend -> Backend : POST /api/startNavigationNoBook\n(起点, 终点, 通行方式)
+activate Backend
+
+Backend -> Gaode : 请求驾驶路线
+activate Gaode
+Gaode --> Backend : 返回路线信息
+deactivate Gaode
+
+Backend --> Frontend : 返回轨迹ID
+deactivate Backend
+Frontend --> User : 显示导航路线
+deactivate Frontend
+
+' ========== 获取章节内容 ==========
+User -> Frontend : 获取章节内容
+activate Frontend
+
+Frontend -> Backend : POST /api/get-chapter\n(bookId, trajectoryId, length)
+activate Backend
+
+Backend -> DB : 查询book表
+activate DB
+DB --> Backend : 返回书籍信息
+deactivate DB
+
+Backend -> DB : 查询area表
+activate DB
+DB --> Backend : 返回区域信息
+deactivate DB
+
+Backend -> AI : 生成章节内容
+activate AI
+AI --> Backend : 返回章节文本
+deactivate AI
+
+Backend -> DB : 插入章节数据到chapter表
+activate DB
+DB --> Backend : 确认保存成功
+deactivate DB
+
+Backend --> Frontend : 返回章节文本
+deactivate Backend
+
+Frontend -> User : 播放章节语音
+User --> Frontend : 收听章节内容
+deactivate Frontend
+
+@enduml

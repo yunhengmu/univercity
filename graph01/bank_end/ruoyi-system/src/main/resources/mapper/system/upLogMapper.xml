@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.UpLogMapper">
+
+    <resultMap type="com.ruoyi.system.domain.admin.UpLog" id="UpLogResult">
+        <id property="id" column="id"/>
+        <result property="bookId" column="book_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectUpLogVo">
+        select id, book_id, user_id, status, create_time, update_time
+        from up_log
+    </sql>
+
+    <!-- 根据ID查询上架记录 -->
+    <select id="selectUpLogById" parameterType="Integer" resultMap="UpLogResult">
+        <include refid="selectUpLogVo"/>
+        where id = #{id}
+    </select>
+
+    <!-- 查询上架记录列表 -->
+    <!-- 查询上架记录列表 -->
+    <select id="selectUpLogList" parameterType="com.ruoyi.system.domain.admin.UpLog" resultMap="UpLogResult">
+        <include refid="selectUpLogVo"/>
+        <where>
+            <if test="bookId != null">
+                AND book_id = #{bookId}
+            </if>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+
+    <!-- 查询所有上架记录列表(无参数) -->
+    <select id="selectAllUpLogList" resultMap="UpLogResult">
+        <include refid="selectUpLogVo"/>
+        order by create_time desc
+    </select>
+
+    <!-- 新增上架记录 -->
+    <insert id="insertUpLog" parameterType="com.ruoyi.system.domain.admin.UpLog" useGeneratedKeys="true" keyProperty="id">
+        insert into up_log (book_id, user_id, status, create_time, update_time)
+        values (#{bookId}, #{userId}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!-- 修改上架记录 -->
+    <update id="updateUpLog" parameterType="com.ruoyi.system.domain.admin.UpLog">
+        update up_log
+        set book_id = #{bookId},
+            user_id = #{userId},
+            status = #{status},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!-- 删除上架记录 -->
+    <delete id="deleteUpLogById" parameterType="Integer">
+        delete from up_log where id = #{id}
+    </delete>
+
+    <!-- 批量删除上架记录 -->
+    <delete id="deleteUpLogByIds" parameterType="Integer">
+        delete from up_log where id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 上架(将状态改为1) -->
+    <update id="shelveUpLog" parameterType="Integer">
+        update up_log
+        set status = 1,
+            update_time = NOW()
+        where id = #{id}
+    </update>
+
+    <!-- 下架(将状态改为0) -->
+    <update id="unshelveUpLog" parameterType="Integer">
+        update up_log
+        set status = 0,
+            update_time = NOW()
+        where id = #{id}
+    </update>
+
+</mapper>

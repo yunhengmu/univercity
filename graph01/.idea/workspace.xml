@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cf130236-9ca7-49f6-b7af-719cb19fa3cc" name="更改" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="UML Sequence" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\maven-repository" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="32V8rFLEr1GDcL1IqULNlMo67og" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.RuoYiApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/java-table/graph01&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.ruoyi.system.domain" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\java-table\graph01\bank_end\ruoyi-system\src\main\java\com\ruoyi\system\domain" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="graph01" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="graph01" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RuoYiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="ruoyi-admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ruoyi.RuoYiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="逻辑" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="cf130236-9ca7-49f6-b7af-719cb19fa3cc" name="更改" comment="" />
+      <created>1757494575947</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1757494575947</updated>
+      <workItem from="1757494577203" duration="429000" />
+      <workItem from="1757498985702" duration="160000" />
+      <workItem from="1757499183572" duration="50000" />
+      <workItem from="1757499280534" duration="34000" />
+      <workItem from="1757499324291" duration="18000" />
+      <workItem from="1757499352389" duration="34000" />
+      <workItem from="1761887550395" duration="13000" />
+      <workItem from="1761887600726" duration="100000" />
+      <workItem from="1761887710947" duration="6000" />
+      <workItem from="1761887745005" duration="90000" />
+      <workItem from="1761887880124" duration="188000" />
+      <workItem from="1761888075782" duration="275000" />
+      <workItem from="1761888377024" duration="24000" />
+      <workItem from="1761888407881" duration="3000" />
+      <workItem from="1761888435222" duration="1277000" />
+      <workItem from="1761956616394" duration="81000" />
+      <workItem from="1762926889543" duration="10000" />
+      <workItem from="1762930894849" duration="2285000" />
+      <workItem from="1765957816148" duration="460000" />
+      <workItem from="1765975664153" duration="14000" />
+      <workItem from="1766227859596" duration="3739000" />
+      <workItem from="1766285092953" duration="27742000" />
+      <workItem from="1766466131235" duration="26443000" />
+      <workItem from="1768021394680" duration="48000" />
+      <workItem from="1768094714486" duration="43876000" />
+      <workItem from="1768200165490" duration="32000" />
+      <workItem from="1768739666776" duration="1408000" />
+      <workItem from="1769525536277" duration="1479000" />
+      <workItem from="1769599861041" duration="5204000" />
+      <workItem from="1769651533081" duration="10159000" />
+      <workItem from="1769680049071" duration="7365000" />
+      <workItem from="1769738798362" duration="14882000" />
+      <workItem from="1769776495787" duration="6154000" />
+      <workItem from="1769819959005" duration="4000" />
+      <workItem from="1769857836349" duration="2478000" />
+      <workItem from="1769913684529" duration="16788000" />
+      <workItem from="1770517900719" duration="8422000" />
+      <workItem from="1770546435271" duration="642000" />
+      <workItem from="1770597457795" duration="17880000" />
+      <workItem from="1770686966406" duration="18399000" />
+      <workItem from="1770773326019" duration="50000" />
+      <workItem from="1773113026586" duration="16464000" />
+      <workItem from="1773237536793" duration="1632000" />
+      <workItem from="1773280175053" duration="302000" />
+      <workItem from="1773730590722" duration="1673000" />
+      <workItem from="1773791445175" duration="149000" />
+      <workItem from="1773791622830" duration="13000" />
+      <workItem from="1774249050149" duration="2163000" />
+      <workItem from="1774422887022" duration="9000" />
+      <workItem from="1774836475423" duration="841000" />
+      <workItem from="1774837388306" duration="6070000" />
+      <workItem from="1774864803451" duration="9328000" />
+      <workItem from="1774956667987" duration="1241000" />
+      <workItem from="1775050554968" duration="1312000" />
+      <workItem from="1775095382532" duration="22000" />
+      <workItem from="1775104543702" duration="1653000" />
+      <workItem from="1775109059101" duration="37736000" />
+      <workItem from="1775207108547" duration="8469000" />
+      <workItem from="1775221316802" duration="4714000" />
+      <workItem from="1775226068065" duration="943000" />
+      <workItem from="1775227032480" duration="9399000" />
+      <workItem from="1775258783031" duration="420000" />
+      <workItem from="1775259320775" duration="30211000" />
+      <workItem from="1775311304256" duration="5067000" />
+      <workItem from="1775350401052" duration="23641000" />
+      <workItem from="1775434893239" duration="5512000" />
+      <workItem from="1775441057762" duration="5375000" />
+      <workItem from="1775449310052" duration="28970000" />
+      <workItem from="1775491272852" duration="7610000" />
+      <workItem from="1775520172989" duration="5050000" />
+      <workItem from="1775535278516" duration="792000" />
+      <workItem from="1775536109996" duration="7566000" />
+      <workItem from="1775562796571" duration="11718000" />
+      <workItem from="1775888827159" duration="1371000" />
+      <workItem from="1775977840426" duration="2826000" />
+      <workItem from="1776139612336" duration="47000" />
+      <workItem from="1776309388958" duration="12000" />
+      <workItem from="1776419790077" duration="3476000" />
+      <workItem from="1776423863565" duration="3469000" />
+      <workItem from="1776517032794" duration="4540000" />
+      <workItem from="1776603658449" duration="1379000" />
+      <workItem from="1776653066668" duration="8000" />
+      <workItem from="1778464986714" duration="1139000" />
+      <workItem from="1778485221812" duration="4131000" />
+      <workItem from="1778549042465" duration="1613000" />
+      <workItem from="1778583546199" duration="3756000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/bank_end/ruoyi-system/src/main/java/com/ruoyi/system/service/UserDataService.java</url>
+          <line>19</line>
+          <properties class="com.ruoyi.system.service.UserDataService" method="getUser">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/bank_end/ruoyi-system/src/main/java/com/ruoyi/system/controller/FavoriteController.java</url>
+          <line>78</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

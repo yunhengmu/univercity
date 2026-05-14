@@ -1,0 +1,61 @@
+@startuml
+title POI查询时序图
+
+skinparam sequence {
+    ArrowColor black
+    ArrowFontColor black
+    ActorBorderColor black
+    ActorBackgroundColor white
+    ActorFontColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+    LifeLineBorderColor black
+    LifeLineBackgroundColor white
+    DividerBorderColor none
+    DividerBackgroundColor transparent
+    DividerFontColor black
+    DividerFontStyle normal  ' 取消加粗，普通字体
+}
+
+actor "用户" as User
+participant "前端" as Frontend
+participant "后端" as Backend
+participant "Redis" as Redis
+participant "高德地图API" as Gaode
+participant "DeepSeekAPI" as AI
+
+User -> Frontend : 选点获得浏览语音
+activate Frontend
+
+Frontend -> Backend : GET /api/getPoi (经纬度, 用户ID)
+activate Backend
+
+Backend -> Redis : 检查缓存
+activate Redis
+Redis --> Backend : 返回缓存结果
+deactivate Redis
+
+Backend -> Gaode : 请求逆地理编码
+activate Gaode
+Gaode --> Backend : 返回POI信息
+deactivate Gaode
+
+Backend -> AI : 生成POI浏览内容
+activate AI
+AI --> Backend : 返回浏览文本
+deactivate AI
+
+Backend -> Redis : 缓存浏览摘要
+activate Redis
+Redis --> Backend : 确认缓存
+deactivate Redis
+
+Backend --> Frontend : 返回浏览文本
+deactivate Backend
+
+Frontend -> Frontend : 播放浏览语音
+Frontend --> User : 收听浏览语音
+deactivate Frontend
+
+@enduml
