@@ -71,10 +71,10 @@ public class StartNavigationServiceImpl implements StartNavigationService {
     @Autowired
     private AIService aiService;
 
-    //deepSeek - 已弃用，建议使用 aiService.generateContent()
 
 
-/*getPoiList*/
+
+
     @Override
     public Map<String, Long> getTextCloud(NavigationData origin, NavigationData destination, String  bookType, String wordsType, String byWay, Integer userId) {
 
@@ -91,7 +91,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
         String infocode = ipLocation.getRegeocode().getAddressComponent().getAdcode();
 
         WeatherResponse weather = amapService.getWeather(infocode,extensions);
-        System.out.println(weather);
         //同时得到导航数据
         RouteResponse  drivingRoute = amapService.getDrivingRoute(myOrigin,myDestination);
         List<Step> steps = drivingRoute.getRoute().getPaths().get(0).getSteps();
@@ -113,7 +112,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
                 .endTime(new Date())
                 .build();
         trajectoryMapper.insert(trajectory);
-        System.out.println( trajectory.getId());
         List<Area> areas = new ArrayList<>();
         tempStemp.forEach(step -> {
             Area area = Area.builder()
@@ -130,7 +128,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
         for (Area area : areas) {
             areaMapper.insert(area);
         }
-        System.out.println(trajectory.getText());
         String prompt = "你是小说家。严格依据以下模板生成JSON，禁止输出任何额外文字、注释或思考过程。只输出纯JSON格式.2.总结，具体经纬度->近似的文化景观->素材;3.不要输出任何思考过程、解释或额外文字;5.依据参考内容按json输出\n";
         String trajectoryData = "从"+trajectory.getCreateArea()+"到"+trajectory.getEndArea()+"通行方式是"+trajectory.getText();
         String bookLength = ",题材风格为"+bookType+"小说长度是"+wordsType;
@@ -215,10 +212,8 @@ public class StartNavigationServiceImpl implements StartNavigationService {
 
         Map<String,Long> strings =new HashMap<>();
 
-        System.out.println("成功");
         strings.put("bookId",bookResult.getBook().getId().longValue());
         strings.put("trajectoryId",trajectory.getId());
-        System.out.println( strings);
         return strings;
     }
 
@@ -238,24 +233,16 @@ public class StartNavigationServiceImpl implements StartNavigationService {
             ipLocation.getRegeocode().getAddressComponent() != null &&
             ipLocation.getRegeocode().getAddressComponent().getAdcode() != null) {
             infocode = ipLocation.getRegeocode().getAddressComponent().getAdcode();
-            System.out.println("获取到的地区码: " + infocode);
         } else {
-            System.out.println("无法获取有效的地区码，使用默认值: " + infocode);
             if (ipLocation != null) {
-                System.out.println("逆地理编码响应状态: " + ipLocation.getStatus());
-                System.out.println("逆地理编码响应信息: " + ipLocation.getInfo());
+                // 记录日志：无法获取有效的地区码
             }
         }
-        System.out.println("最终使用的地区码: " + infocode);
         
-        // 检查是否获得了有效的地区码
         WeatherResponse weather = null;
         if (infocode != null && !infocode.equals("000000") && !infocode.isEmpty() && infocode.matches("\\d{6}")) {
             //通过城市编码得到城市天气
-            System.out.println("使用地区码 " + infocode + " 获取天气信息");
             weather = amapService.getWeather(infocode, extensions);
-        } else {
-            System.out.println("地区码无效，创建默认天气响应");
             // 如果无法获取有效地区码，创建一个默认的天气响应
             weather = new WeatherResponse();
             weather.setStatus("0");
@@ -263,8 +250,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
             weather.setInfocode("10000");
             weather.setForecasts(Collections.emptyList());
         }
-        
-        System.out.println("天气响应: " + weather);
 
         //5.生成一章内容
         //将导航数据拼串喂给ai
@@ -282,7 +267,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
         String promptResult = prompt3+prompt1;
         //返回数据到前端
         String chat = aiService.generateText(promptResult);
-        System.out.println(chat);
         strings.put("voiceContent",chat);
         return chat;
     }
@@ -290,13 +274,11 @@ public class StartNavigationServiceImpl implements StartNavigationService {
     @Override
     public String getChapter(Long bookId,Integer trajectoryId,Integer length){
         Book book = bookMapper.selectOneById(bookId);
-        System.out.println(book);
         List<Story> storyList = new ArrayList<>();
         Chapter chapter  = new Chapter();
         Area area = atArea.getArea(trajectoryId, length);
         if(book != null){
             Integer abookId = book.getId();
-            System.out.println(abookId);
             List<Chapter> chapters = chapterMapper.selectByBookId(bookId);
             List<Story> stories = storyMapper.selectStoryList(bookId);
             if (stories != null){
@@ -314,7 +296,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
                         // 如果chapters为空，初始化一个默认值或抛出有意义的异常
                         chapter = new Chapter(); // 或适当的默认对象
                     }
-                    System.out.println();
                 }else {
                     // 检查chapters列表是否为空，避免越界
                     if (!chapters.isEmpty()) {
@@ -327,7 +308,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
             }
         }
         if (book != null && book.getChapterNum() < book.getTotalChapter()) {
-            System.out.println(book.getChapterNum() + 1);
             book.setChapterNum(book.getChapterNum() + 1);
             String prompt = getChapterPrompt(book, chapter, storyList);
             String prompt3 = "";
@@ -346,9 +326,7 @@ public class StartNavigationServiceImpl implements StartNavigationService {
             //把序列化数据进行更新
             Chapter chapterA = chapterResult.getChapter();
             chapterA.setBookId(bookId.intValue());
-            System.out.println(chapterA);
             Story story = chapterResult.getStory();
-            System.out.println(story);
             chapterMapper.insert(chapterA);
             if (story != null) {
                 storyMapper.updateItem(story);
@@ -397,7 +375,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
 
         // 确保经纬度格式正确
         String address = longitude + "," + latitude;
-        System.out.println(cacheKey);
         // 尝试从缓存获取摘要信息
         String um = null;
         if (cacheKey != null) {
@@ -533,7 +510,6 @@ public class StartNavigationServiceImpl implements StartNavigationService {
         List<Aiarea> aiareas = new ArrayList<>();
         if (isNavigation==true){
             cacheKeys.forEach(cache -> {
-                System.out.println(cache);
                 String cacheContent = redisCache.getCacheObject(cache);
                 Aiarea cacheAiArea = Aiarea.builder()
                         .guideId(guide.getId())

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/bank_end/ruoyi-common/ruoyi-common.iml" filepath="$PROJECT_DIR$/bank_end/ruoyi-common/ruoyi-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bank_end/ruoyi-framework/ruoyi-framework.iml" filepath="$PROJECT_DIR$/bank_end/ruoyi-framework/ruoyi-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/graph01.iml" filepath="$PROJECT_DIR$/.idea/graph01.iml" />
       <module fileurl="file://$PROJECT_DIR$/bank_end/ruoyi-system/ruoyi-system.iml" filepath="$PROJECT_DIR$/bank_end/ruoyi-system/ruoyi-system.iml" />
     </modules>
   </component>
