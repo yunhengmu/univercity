@@ -11,10 +11,14 @@ public class AmapService {
 
     @Autowired
     private RestTemplate restTemplate;
+    
+    @Autowired
+    private AmapConfig amapConfig;
 
     // 1. 获取地理编码
     public GeoResponse getGeoLocation(String address) {
         GeoRequest request = new GeoRequest(address);
+        request.setKey(amapConfig.key);
         return restTemplate.getForObject(
             AmapConfig.GEO_URL + "?address={address}&key={key}",
             GeoResponse.class, request.getAddress(), request.getKey()
@@ -24,6 +28,7 @@ public class AmapService {
     // 2. 获取天气信息
     public WeatherResponse getWeather(String cityCode, String extensions) {
         WeatherRequest request = new WeatherRequest(cityCode, extensions);
+        request.setKey(amapConfig.key);
         return restTemplate.getForObject(
             AmapConfig.WEATHER_URL + "?city={city}&extensions={extensions}&key={key}",
             WeatherResponse.class, request.getCity(), request.getExtensions(), request.getKey()
@@ -33,6 +38,7 @@ public class AmapService {
     // 3. 获取驾车路线
     public RouteResponse  getDrivingRoute(String origin, String destination) {
         DrivingRequest request = new DrivingRequest(origin, destination);
+        request.setKey(amapConfig.key);
         return restTemplate.getForObject(
             AmapConfig.DIRECTION_URL + 
             "?origin={origin}&destination={destination}&extensions={extensions}&output={output}&key={key}",
@@ -56,7 +62,7 @@ public class AmapService {
     public PoiResponse getPoiList(String address, String city, String types, String radius) {
         AmapPlaceAroundRequest request = new AmapPlaceAroundRequest();
         request.builder()
-                .key(AmapConfig.KEY)
+                .key(amapConfig.key)
                 .location(address)
                 .city(city)
                 .types(types);
@@ -77,7 +83,7 @@ public class AmapService {
         // 获取原始响应字符串而不是直接转换为对象
 
         ReverseGeoRequest request = new ReverseGeoRequest();
-        request.setKey(AmapConfig.KEY);
+        request.setKey(amapConfig.key);
         request.setLocation(location);
         request.setRadius(radius);
         request.setRoadlevel(0);

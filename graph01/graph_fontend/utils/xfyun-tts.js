@@ -16,9 +16,9 @@ try {
 
 // 讯飞配置信息（请替换为实际的配置）
 const XF_CONFIG = {
-  appId: '3dda5878', // 讯飞应用ID
-  apiKey: 'f54db4743cc5fdd375a913e8b0ee2f92', // 讯飞API Key
-  apiSecret: 'YWE2NWNmZGYzZTg2MWMyMzdlNmExNWIy', // 讯飞API Secret
+  appId: process.env.XF_APP_ID || 'your-app-id-here', // 讯飞应用ID
+  apiKey: process.env.XF_API_KEY || 'your-api-key-here', // 讯飞API Key
+  apiSecret: process.env.XF_API_SECRET || 'your-api-secret-here', // 讯飞API Secret
   hostUrl: 'https://tts-api.xfyun.cn/v2/tts', // 讯飞TTS接口地址
 }
 

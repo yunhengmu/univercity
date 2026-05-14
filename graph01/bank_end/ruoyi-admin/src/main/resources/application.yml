@@ -49,7 +49,7 @@ user:
 spring:
   ai:
     openai:
-      api-key: ${DEEPSEEK_API_KEY:sk-40baa7585e284728a04119bcbc5f9258}
+      api-key: ${DEEPSEEK_API_KEY:your-api-key-here}
       base-url: https://api.deepseek.com  # 保持这个，代码中会自动添加/v1
       client:
         connect-timeout: 60s
@@ -106,7 +106,7 @@ token:
   # 令牌自定义标识
   header: Authorization
   # 令牌密钥
-  secret: abcdefghijklmnopqrstuvwxyz
+  secret: ${TOKEN_SECRET:your-secret-key-here}
   # 令牌有效期（默认30分钟）
   expireTime: 30
 

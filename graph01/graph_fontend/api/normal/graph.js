@@ -184,7 +184,7 @@ export function getChapters(bookId, pageNum, pageSize) {
  * @returns {Promise} 返回路径数据
  */
 export function getDrivingRoute(origin, destination) {
-  const amapKey = 'cbd2f2cb175d650a4c6db70b96dc656b';
+  const amapKey = process.env.AMAP_KEY || 'your-amap-key-here';
   const url = `https://restapi.amap.com/v3/direction/driving?origin=${origin.longitude},${origin.latitude}&destination=${destination.longitude},${destination.latitude}&key=${amapKey}`;
   
   return new Promise((resolve, reject) => {

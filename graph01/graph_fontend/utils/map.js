@@ -7,10 +7,10 @@
 
 // 地图配置常量
 const MAP_CONFIG = {
-    key: '88d377f3db721715fe80e845ff237471',
-    securityCode: '72c7f0e8ade7f38ab15b8e6e243e95bb',
+    key: process.env.AMAP_KEY || 'your-amap-key-here',
+    securityCode: process.env.AMAP_SECURITY_CODE || 'your-security-code-here',
     version: '1.4.15',
-    searchKey: 'cbd2f2cb175d650a4c6db70b96dc656b'
+    searchKey: process.env.AMAP_SEARCH_KEY || 'your-search-key-here'
 }
 
 /**

@@ -62,7 +62,7 @@ export default {
       codeUrl: "",
       loginForm: {
         username: "admin",
-        password: "admin123",
+        password: "", // 请手动输入密码
         rememberMe: false
       },
       loginRules: {
