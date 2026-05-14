@@ -1,0 +1,43 @@
+server:
+  port: 8201
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shequ-acl?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: ${DB_PASSWORD:your_password}
+    # 暴露 common.result 包给重启类加载器
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 1800000
+    password:
+    lettuce:
+      pool:
+        max-active: 20 #最大连接数
+        max-wait: -1    #最大阻塞等待时间(负数表示没限制)
+        max-idle: 5    #最大空闲
+        min-idle: 0     #最小空闲
+  devtools:
+      restart:
+        enabled: false  # 禁用自动重启
+management:
+  health:
+    redis:
+      enabled: false  # 暂时禁用健康检查
+
+
+aliyun:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  keyid: ${ALIYUN_KEY_ID:your_key_id}
+  keysecret: ${ALIYUN_KEY_SECRET:your_key_secret}
+  bucketname: ${ALIYUN_BUCKET_NAME:your_bucket_name}
+
+

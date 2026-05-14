@@ -1,0 +1,77 @@
+@startuml
+' 定义实体样式
+skinparam entity {
+    BackgroundColor #F0F8FF
+    BorderColor #00008B
+    FontColor #000000
+}
+
+' 权限表
+entity "permission\n(权限表)" as permission {
+    + id : int <<PK>>  // 主键
+    --
+    name : varchar  // 权限名称
+    code : varchar  // 权限标识
+    description : text  // 权限描述
+    create_time : datetime  // 创建时间
+}
+
+' 角色表
+entity "role\n(角色表)" as role {
+    + id : int <<PK>>  // 主键
+    --
+    role_name : varchar  // 角色名称
+    role_desc : text  // 角色描述
+    create_time : datetime  // 创建时间
+}
+
+' 管理员表
+entity "admin\n(管理员表)" as admin {
+    + id : int <<PK>>  // 主键
+    --
+    username : varchar  // 登录账号
+    password : varchar  // 加密密码
+    nickname : varchar  // 昵称
+    status : tinyint  // 状态(0禁用/1正常)
+    create_time : datetime  // 创建时间
+}
+
+' 管理员-角色关联表（多对多中间表）
+entity "admin_role\n(管理员-角色关联表)" as admin_role {
+    + id : int <<PK>>  // 主键
+    --
+    admin_id : int <<FK>>  // 关联管理员ID
+    role_id : int <<FK>>  // 关联角色ID
+}
+
+' 角色-权限关联表（多对多中间表）
+entity "role_permission\n(角色-权限关联表)" as role_permission {
+    + id : int <<PK>>  // 主键
+    --
+    role_id : int <<FK>>  // 关联角色ID
+    permission_id : int <<FK>>  // 关联权限ID
+}
+
+' 管理员登录日志表
+entity "admin_login_log\n(管理员登录日志表)" as admin_login_log {
+    + id : int <<PK>>  // 主键
+    --
+    admin_id : int <<FK>>  // 关联管理员ID
+    ip : varchar  // 登录IP
+    address : varchar  // 登录地址
+    login_time : datetime  // 登录时间
+    user_agent : text  // 客户端信息
+}
+
+' 表间关系
+' 管理员与角色：多对多（通过admin_role）
+admin ||--o{ admin_role : "关联"
+role ||--o{ admin_role : "被关联"
+
+' 角色与权限：多对多（通过role_permission）
+role ||--o{ role_permission : "关联"
+permission ||--o{ role_permission : "被关联"
+
+' 管理员与登录日志：一对多
+admin ||--o{ admin_login_log : "产生"
+@enduml

@@ -1,0 +1,44 @@
+@startuml 角色权限关联关系的更新与结果反馈活动图
+title 角色权限关联关系的更新与结果反馈流程
+
+start
+
+:用户在前端调整“权限树”勾选后，点击「保存」按钮;
+:前端封装请求参数（角色 ID roleId、选中的权限 ID 列表 permissionIds）;
+:向前端发起“更新角色权限”请求（POST/PUT）;
+:RoleController 接收请求;
+:调用 RolePermissionService 的 updateRolePermissions 方法;
+
+:RolePermissionService 执行“删除原有权限关联”操作;
+:调用 RolePermissionMapper 的 deleteByRoleId 方法;
+:数据库执行 DELETE 语句（DELETE FROM role_permission WHERE role_id = #{roleId}）;
+:数据库返回删除操作结果（影响行数）;
+:RolePermissionMapper 将删除结果返回给 RolePermissionService;
+
+if (删除操作失败?) then (是)
+  :RolePermissionService 返回“操作失败”给 RoleController;
+  :RoleController 向前端返回失败结果（如“数据库删除异常”）;
+  :前端显示错误提示，流程结束;
+  stop
+else (否)
+  :RolePermissionService 执行“插入新权限关联”操作;
+  :构造 RolePermission 实体列表（roleId 与每个 permissionId 的组合）;
+  :调用 RolePermissionMapper 的 insertBatch 方法;
+  :数据库执行批量 INSERT 语句（INSERT INTO role_permission...）;
+  :数据库返回插入操作结果（影响行数）;
+  :RolePermissionMapper 将插入结果返回给 RolePermissionService;
+
+  if (插入操作失败?) then (是)
+    :RolePermissionService 返回“操作失败”给 RoleController;
+    :RoleController 向前端返回失败结果（如“数据库插入异常”）;
+    :前端显示错误提示，流程结束;
+    stop
+  else (否)
+    :RolePermissionService 返回“更新成功”给 RoleController;
+    :RoleController 向前端返回成功结果;
+    :前端显示“保存成功”提示，流程结束;
+  endif
+endif
+
+stop
+@enduml

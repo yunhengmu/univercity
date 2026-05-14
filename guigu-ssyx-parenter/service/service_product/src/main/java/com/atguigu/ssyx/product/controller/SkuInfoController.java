@@ -1,0 +1,124 @@
+package com.atguigu.ssyx.product.controller;
+
+import com.atguigu.ssyx.common.result.Result;
+import com.atguigu.ssyx.model.product.SkuInfo;
+import com.atguigu.ssyx.product.service.SkuInfoService;
+import com.atguigu.ssyx.vo.product.SkuInfoQueryVo;
+import com.atguigu.ssyx.vo.product.SkuInfoVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * ClassName: SkuInfoController
+ * Package: com.atguigu.ssyx.product.controller
+ * Description:
+ *
+ * @Author 张鹏
+ * @Create 2025/7/22 14:19
+ * @Version 1.0
+ */
+@Api(tags = "Sku管理接口")
+@RestController
+@RequestMapping("/admin/product/skuInfo/")
+@CrossOrigin
+public class SkuInfoController {
+//    return request({
+//      url: `${api_name}/${page}/${limit}`,
+//      method: 'get',
+//      params: searchObj
+//    })
+
+    @Autowired
+    private SkuInfoService skuInfoService;
+
+    @ApiOperation("菜单列表查询")
+    @GetMapping("{page}/{limit}")
+    public Result getSkuInfoByPage(@PathVariable("page") Long page,
+                                   @PathVariable("limit") Long limit,
+                                   SkuInfoQueryVo skuInfoQueryVo){
+        Page pageItem = new Page(page,limit);
+        IPage<SkuInfo> skuInfoIPage = skuInfoService.getListSkuInfo(pageItem,skuInfoQueryVo);
+        return Result.ok(skuInfoIPage);
+    }
+
+    @ApiOperation("存储（多个表）")
+    @PostMapping("save")
+    public Result save(@RequestBody SkuInfoVo skuInfoVo){
+        skuInfoService.saveMany(skuInfoVo);
+        return  Result.ok(null);
+    }
+/*
+      url: `${api_name}/update`,
+      method: 'put',
+      data: role
+*/
+    @ApiOperation("更新内容")
+    @PutMapping("update")
+    public Result update(@RequestBody SkuInfoVo skuInfoVo){
+        skuInfoService.updateSku(skuInfoVo);
+        return  Result.ok(null);
+    }
+
+    @ApiOperation(value = "删除")
+    @DeleteMapping("remove/{id}")
+    public Result remove(@PathVariable Long id) {
+        skuInfoService.removeById(id);
+        return Result.ok(null);
+    }
+
+    @ApiOperation(value = "根据id列表删除")
+    @DeleteMapping("batchRemove")
+    public Result batchRemove(@RequestBody List<Long> idList) {
+        skuInfoService.removeByIds(idList);
+        return Result.ok(null);
+    }
+    /*url: `${api_name}/get/${id}`,
+      method: 'get'*/
+    @ApiOperation(value = "根据id查找内容")
+    @GetMapping("get/{id}")
+    public Result getById(@PathVariable Long id){
+        SkuInfoVo skuInfoVo = skuInfoService.getItemById(id);
+        return Result.ok(skuInfoVo);
+    }
+
+/*    url: `${api_name}/publish/${id}/${status}`,
+      method: 'get'
+* */
+    @ApiOperation(value = "商品上架")
+    @GetMapping("publish/{id}/{status}")
+    public Result itemUp(@PathVariable Long id,
+                         @PathVariable Integer status){
+        skuInfoService.itemUp(id,status);
+        return Result.ok(null);
+    }
+
+    /*
+      url: `${api_name}/check/${id}/${status}`,
+      method: 'get'
+   * */
+    @ApiOperation(value = "审核是否通过")
+    @GetMapping("check/{id}/{status}")
+    public Result check(@PathVariable Long id,
+                        @PathVariable Integer status){
+        skuInfoService.check(id,status);
+        return Result.ok(null);
+    }
+
+    /*
+    *  url: `${api_name}/isNewPerson/${id}/${status}`,
+      method: 'get'
+    * */
+    @ApiOperation(value = "是否新人专享")
+    @GetMapping("isNewPerson/{id}/{status}")
+    public Result isNewPerson(@PathVariable Long id,
+                              @PathVariable Integer status){
+        skuInfoService.isNewPerson(id,status);
+        return Result.ok(null);
+    }
+}
